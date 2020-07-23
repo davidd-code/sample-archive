@@ -11,40 +11,30 @@ services:
         volumes:
             - ./client:/client/
         entrypoint: ["npm", "start"]
+        stdin_open: true
+        tty: true
         # links:
             # - server
         # networks:
             # - webappnetwork
-#     server:
-#         build:
-#             context: .
-#             dockerfile: server/Dockerfile
-#         # restart: always
-#         ports:
-#             - "9000:9000"
-#         volumes:
-#             - ./server:/server
-#             - /server/node_modules
-#         depends_on:
-#             - mongodb
-#         environment:
-#             - PORT=8080
-#             - MONGO_URI="mongodb://mongo:27017/docker-app"
-#             - MONGO_HOSTNAME=localhost
-#             - MONGO_DB=myapp_db
-#             - MONGO_PORT=27017
-#         networks:
-#             - webappnetwork
-#     mongodb:
-#         image: mongo
-#         container_name: mongodb
-#         volumes:
-#             - ./data-node:/data/db
-#         ports:
-#             - 27017:27017
-#         command: mongod --noauth
-#         networks:
-#             - webappnetwork
-# networks:
-#     webappnetwork:
-#         driver: bridge
+
+    server:
+      build: 
+          context: .
+          dockerfile: server/Dockerfile
+      command: nodemon server/app.js
+      volumes:
+        - .:/code
+      ports:
+        - "8080:8080"
+      links:
+        - mongo
+      env_file:
+        - server/.env
+    
+    mongo:
+      hostname: mongo
+      restart: always
+      image: mongo
+      ports:
+        - "27017:27017"
