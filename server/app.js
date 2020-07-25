@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'))
     .use(cors())
     .use(cookieParser());
 
-app.use('/', auth_routes);
+app.use('/auth', auth_routes);
 
 app.listen(PORT, function() {
     console.log(`Server listening on port ${PORT}`)

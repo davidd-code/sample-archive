@@ -3,8 +3,8 @@ var querystring = require('querystring');
 var request = require('request');
 
 var client_id = '4bcf916775bc4ffb9e56b16d4408da42'; // Your client id
-var client_secret = '99925dd77fe641538ecf45569755e05d'; // Your secret
-var redirect_uri = 'http://localhost:8080/callback'; // Your redirect uri
+var client_secret = process.env.CLIENT_SECRET; // Your secret
+var redirect_uri = 'http://localhost:8080/auth/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
