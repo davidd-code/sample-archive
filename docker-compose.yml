@@ -22,7 +22,7 @@ services:
       build: 
           context: .
           dockerfile: server/Dockerfile
-      command: nodemon server/app.js
+      command: nodemon --legacy-watch server/app.js
       volumes:
         - .:/code
       ports:

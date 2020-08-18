@@ -1,6 +1,5 @@
 var request = require('request');
 var querystring = require('querystring');
-var request = require('request');
 
 var client_id = '4bcf916775bc4ffb9e56b16d4408da42'; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
@@ -81,15 +80,25 @@ exports.get_callback = (req, res) => {
 
                 // use the access token to access the Spotify Web API
                 request.get(options, function (error, response, body) {
-                    console.log(body);
+                    console.log(body.display_name);
+                    console.log(body.images[0].url);
+                    console.log(body.id);
+                    console.log(body.href);
+                    console.log(access_token);
+                    console.log(refresh_token);
                 });
 
+                // res.redirect('http://localhost:3000')
+
                 // we can also pass the token to the browser to make requests from there
-                res.redirect('/#' +
-                    querystring.stringify({
-                        access_token: access_token,
-                        refresh_token: refresh_token
-                    }));
+                // res.redirect('/#' +
+                //     querystring.stringify({
+                //         access_token: access_token,
+                //         refresh_token: refresh_token
+                //     }));
+                res.redirect('/#');
+
+
             } else {
                 res.redirect('/#' +
                     querystring.stringify({
