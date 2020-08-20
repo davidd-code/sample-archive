@@ -8,6 +8,6 @@ COPY server/package.json /server/package.json
 RUN npm install && npm ls
 RUN mv /server/node_modules /node_modules
 
-COPY . /server
+COPY /server /server
 
 CMD ["npm", "start"]
