@@ -20,7 +20,7 @@
     <div class="container">
       <div id="login">
         <h1>This is an example of the Authorization Code flow</h1>
-        <a href="/login" class="btn btn-primary">Log in with Spotify</a>
+        <a href="/auth/login" class="btn btn-primary">Log in with Spotify</a>
       </div>
       <div id="loggedin">
         <div id="user-profile">
@@ -56,6 +56,7 @@
       <dl class="dl-horizontal">
         <dt>Access token</dt><dd class="text-overflow">{{access_token}}</dd>
         <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}</dd>
+        <a href="http://localhost:3000">Take me back to the application</a>
       </dl>
     </script>
 
@@ -122,7 +123,7 @@
 
           document.getElementById('obtain-new-token').addEventListener('click', function() {
             $.ajax({
-              url: '/refresh_token',
+              url: 'auth/refresh_token',
               data: {
                 'refresh_token': refresh_token
               }

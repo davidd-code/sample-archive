@@ -1,10 +1,13 @@
 var request = require('request');
 var querystring = require('querystring');
-var request = require('request');
+
+const User = require('../models/user');
+const mongoose = require('mongoose');
+const { access } = require('fs');
 
 var client_id = '4bcf916775bc4ffb9e56b16d4408da42'; // Your client id
-var client_secret = '99925dd77fe641538ecf45569755e05d'; // Your secret
-var redirect_uri = 'http://localhost:8080/callback'; // Your redirect uri
+var client_secret = process.env.CLIENT_SECRET; // Your secret
+var redirect_uri = 'http://localhost:8080/auth/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -81,15 +84,49 @@ exports.get_callback = (req, res) => {
 
                 // use the access token to access the Spotify Web API
                 request.get(options, function (error, response, body) {
-                    console.log(body);
+                    console.log(body.display_name);
+                    console.log(body.images[0].url);
+                    console.log(body.id);
+                    console.log(body.href);
+                    console.log(access_token);
+                    console.log(refresh_token);
+
+                    User.findOne( { spotify_id: body.id }).then(found_user => {
+                        if (found_user) {
+                            console.log("User exists in database");
+                        } else {
+                            const new_user = new User({
+                                _id: new mongoose.Types.ObjectId(),
+                                display_name: body.display_name,
+                                profile_img_url: body.images[0].url,
+                                spotify_id: body.id,
+                                spotify_url: body.href,
+                                access_token: access_token,
+                                refresh_token: refresh_token,
+                                email: body.email
+                            });
+                            new_user.save().then(saved_user => {
+                                // res.json('New user added');
+                                console.log("New user added");
+                            })
+
+
+                        }
+                    })
+
                 });
 
+                // res.redirect('http://localhost:3000')
+
                 // we can also pass the token to the browser to make requests from there
-                res.redirect('/#' +
-                    querystring.stringify({
-                        access_token: access_token,
-                        refresh_token: refresh_token
-                    }));
+                // res.redirect('/#' +
+                //     querystring.stringify({
+                //         access_token: access_token,
+                //         refresh_token: refresh_token
+                //     }));
+                res.redirect('/#');
+
+
             } else {
                 res.redirect('/#' +
                     querystring.stringify({
