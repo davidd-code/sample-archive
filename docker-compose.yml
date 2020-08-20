@@ -1,40 +1,43 @@
 version: "2"
 services:
-    client:
-        build:
-            context: .
-            dockerfile: client/Dockerfile
-        # restart: always
-        ports:
-            - "3000:3000"
-        working_dir: /client/
-        volumes:
-            - ./client:/client/
-        entrypoint: ["npm", "start"]
-        stdin_open: true
-        tty: true
-        # links:
-            # - server
-        # networks:
-            # - webappnetwork
-
-    server:
-      build: 
+  client:
+      build:
           context: .
-          dockerfile: server/Dockerfile
-      command: nodemon --legacy-watch server/app.js
+          dockerfile: client/Dockerfile
+      # restart: always
+      ports:
+          - "3000:3000"
+      working_dir: /client/
       volumes:
-        - .:/code
-      ports:
-        - "8080:8080"
-      links:
-        - mongo
-      env_file:
-        - server/.env
-    
-    mongo:
-      hostname: mongo
-      restart: always
-      image: mongo
-      ports:
-        - "27017:27017"
+          - ./client:/client/
+      entrypoint: ["npm", "start"]
+      stdin_open: true
+      tty: true
+
+  server:
+    build: 
+        context: .
+        dockerfile: server/Dockerfile
+    command: nodemon --legacy-watch server/app.js
+    volumes:
+      - .:/code
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+    env_file:
+      - server/.env
+    # networks:
+      # - appnetwork
+  
+  mongo:
+    hostname: mongo
+    restart: always
+    image: mongo
+    ports:
+      - "27018:27017"
+    # networks:
+      # - appnetwork
+
+# networks:
+  # appnetwork:
