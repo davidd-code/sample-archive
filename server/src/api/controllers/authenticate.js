@@ -1,6 +1,10 @@
 var request = require('request');
 var querystring = require('querystring');
 
+const User = require('../models/user');
+const mongoose = require('mongoose');
+const { access } = require('fs');
+
 var client_id = '4bcf916775bc4ffb9e56b16d4408da42'; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
 var redirect_uri = 'http://localhost:8080/auth/callback'; // Your redirect uri
@@ -86,6 +90,30 @@ exports.get_callback = (req, res) => {
                     console.log(body.href);
                     console.log(access_token);
                     console.log(refresh_token);
+
+                    User.findOne( { spotify_id: body.id }).then(found_user => {
+                        if (found_user) {
+                            console.log("User exists in database");
+                        } else {
+                            const new_user = new User({
+                                _id: new mongoose.Types.ObjectId(),
+                                display_name: body.display_name,
+                                profile_img_url: body.images[0].url,
+                                spotify_id: body.id,
+                                spotify_url: body.href,
+                                access_token: access_token,
+                                refresh_token: refresh_token,
+                                email: body.email
+                            });
+                            new_user.save().then(saved_user => {
+                                // res.json('New user added');
+                                console.log("New user added");
+                            })
+
+
+                        }
+                    })
+
                 });
 
                 // res.redirect('http://localhost:3000')
