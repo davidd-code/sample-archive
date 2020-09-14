@@ -84,13 +84,8 @@ exports.get_callback = (req, res) => {
 
                 // use the access token to access the Spotify Web API
                 request.get(options, function (error, response, body) {
-                    console.log(body.display_name);
-                    console.log(body.images[0].url);
-                    console.log(body.id);
-                    console.log(body.href);
-                    console.log(access_token);
-                    console.log(refresh_token);
-
+                    
+                    // Add user's details to NoSql Database
                     User.findOne( { spotify_id: body.id }).then(found_user => {
                         if (found_user) {
                             console.log("User exists in database");
@@ -116,15 +111,14 @@ exports.get_callback = (req, res) => {
 
                 });
 
-                // res.redirect('http://localhost:3000')
-
                 // we can also pass the token to the browser to make requests from there
-                // res.redirect('/#' +
-                //     querystring.stringify({
-                //         access_token: access_token,
-                //         refresh_token: refresh_token
-                //     }));
-                res.redirect('/#');
+                console.log(access_token);
+                console.log(refresh_token);
+                res.redirect('http://localhost:3000/getUser/' +
+                        querystring.stringify({
+                        access_token: access_token,
+                        refresh_token: refresh_token
+                    }));
 
 
             } else {
