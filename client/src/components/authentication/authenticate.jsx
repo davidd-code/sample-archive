@@ -15,8 +15,6 @@ class AuthComponent extends Component {
             <div>
 
                 <a className="login-a" href="http://localhost:8080/auth/login">LOGIN</a>
-                <p>{this.state.refresh_token}</p>
-                <p>{this.state.access_token}</p>
             </div>
         );
 
