@@ -115,6 +115,7 @@ exports.get_callback = (req, res) => {
                 console.log(access_token);
                 console.log(refresh_token);
                 res.redirect('http://localhost:3000/getUser/' +
+                // res.redirect('http://localhost:8080/#' +
                         querystring.stringify({
                         access_token: access_token,
                         refresh_token: refresh_token

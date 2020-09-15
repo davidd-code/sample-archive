@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const auth_routes = require('./src/api/routes/authenticate')
+const user_routes = require('./src/api/routes/user')
 // const auth_routes = require('./src/api/routes/spotify-authenticate');
 
 require('./src/database');
@@ -23,6 +24,7 @@ app.use(express.static(__dirname + '/public'))
 
 // routes
 app.use('/auth', auth_routes);
+app.use('/user', user_routes);
 
 app.listen(PORT, function() {
     console.log(`Server listening on port ${PORT}`)

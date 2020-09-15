@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import axios from 'axios';
 
 class ShowUserPage extends Component {
     constructor(props) {
@@ -10,6 +11,18 @@ class ShowUserPage extends Component {
 
         localStorage.setItem('access_token', this.state.access_token);
         localStorage.setItem('refresh_token', this.state.refresh_token);
+
+        const backendUrl = "http://localhost:8080/";
+        axios.get(backendUrl + "user/get/" + this.state.access_token, {
+            params: {
+                token: this.state.access_token
+            }
+        })
+            .then(res => {
+                console.log("response received");
+                console.log(res.data)
+            })
+
 
     }
 

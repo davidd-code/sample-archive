@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const mongoose = require('mongoose');
+const fetch = require('node-fetch');
 
 exports.create_user = (req, res) => {
     // Check if user exists in database
@@ -22,5 +23,17 @@ exports.create_user = (req, res) => {
                 res.json("New location added");
             })
         }
+    })
+}
+
+exports.get_user = async(req, res) => {
+    await fetch("https://api.spotify.com/v1/me", {
+        headers: {
+            "Authorization": `Bearer ${req.params.token}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        res.json(data)
     })
 }
