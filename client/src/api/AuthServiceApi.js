@@ -32,6 +32,16 @@ class AuthServiceApi {
 
             })
     }
+
+    isUserLoggedIn() {
+        let user = localStorage.getItem('user_id');
+        if (user === null) {
+            return false;
+        }
+        return true;
+    }
+
+
 }
 
 export default new AuthServiceApi();
