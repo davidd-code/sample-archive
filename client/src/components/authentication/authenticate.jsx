@@ -13,8 +13,6 @@ class AuthComponent extends Component {
     render() {
         return (
             <div>
-
-                <a className="login-a" href="http://localhost:8080/auth/login">LOGIN</a>
             </div>
         );
 
