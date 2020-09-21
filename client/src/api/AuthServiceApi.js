@@ -1,10 +1,18 @@
 import axios from 'axios';
 require('dotenv').config();
 
+const backendUrl = "http://localhost:8080/";
+
 class AuthServiceApi {
 
+    logInUser() {
+        axios.get(backendUrl+"auth/login")
+            .then(res => {
+                console.log(res.data);
+            });
+    }
+
     getUserFromAccessToken(access_token) {
-        const backendUrl = "http://localhost:8080/";
         var user;
         return axios.get(backendUrl + "user/get/" + access_token, {
             params: {
@@ -18,6 +26,8 @@ class AuthServiceApi {
                 localStorage.setItem('country', res.data.country);
                 localStorage.setItem('user_id', res.data.id);
                 localStorage.setItem('profile_img', res.data.images[0].url);
+                localStorage.setItem('access_token', res.data.access_token);
+                localStorage.setItem('refresh_token', res.data.refresh_token);
 
                 user = {
                     display_name: res.data.display_name,
@@ -40,6 +50,16 @@ class AuthServiceApi {
         }
         return true;
     }
+
+    logOutUser() {
+        localStorage.clear();
+        const url = 'https://accounts.spotify.com/en/logout/'
+        const spotifyLogoutWindow = window.open(url, 'Spotify Logout', 'width=700, height=500, top=40, left=40');
+        setTimeout(() => spotifyLogoutWindow.close(), 200);
+        window.location.reload(false);
+        window.location.href = "/"
+    }
+
 
 
 }

@@ -22,12 +22,9 @@ class Header extends Component {
                 {isUserLoggedIn &&
                     <Nav>
                         <Nav.Link href="http://localhost:8080/auth/login">{localStorage.getItem('display_name')}</Nav.Link>
-                        <Nav.Link href="#">Log out</Nav.Link>
+                        <Nav.Link href="#" onClick={AuthServiceApi.logOutUser}>Log out</Nav.Link>
                     </Nav>
                 }
-
-
-
             </Navbar.Collapse>
             </Navbar>
 

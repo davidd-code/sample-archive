@@ -19,8 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public'))
-    .use(cors())
+    .use(cors({origin: true}))
     .use(cookieParser());
+
+
 
 // routes
 app.use('/auth', auth_routes);
