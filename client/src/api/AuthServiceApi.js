@@ -27,7 +27,6 @@ class AuthServiceApi {
             }
         })
             .then(res => {
-                console.log(res);
                 localStorage.setItem('display_name', res.data.display_name);
                 localStorage.setItem('email', res.data.email);
                 localStorage.setItem('spotify_uri', res.data.external_urls.spotify);
@@ -51,10 +50,10 @@ class AuthServiceApi {
 
     isUserLoggedIn() {
         let user = localStorage.getItem('user_id');
-        if (user !== null ) {
-            return true;
+        if (user === null ) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     logOutUser() {

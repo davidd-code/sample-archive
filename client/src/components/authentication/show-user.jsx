@@ -11,7 +11,7 @@ class ShowUserPage extends Component {
             spotify_uri: '',
             country: '',
             user_id: '',
-            profile_img : ''
+            profile_img : '',
         }
 
     }
@@ -35,7 +35,7 @@ class ShowUserPage extends Component {
         return(
             <div className="container">
                 <h1>Logged in as {this.state.display_name}</h1>
-                <img src={this.state.profile_img}/>
+                <img src={this.state.profile_img} alt="Logged in user" />
                 <p><strong>Id</strong> {this.state.user_id}</p>
                 <p><strong>Email</strong> {this.state.email}</p>
                 <p><strong>Spotify URI</strong> {this.state.spotify_uri}</p>

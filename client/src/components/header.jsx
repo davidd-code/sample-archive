@@ -1,29 +1,42 @@
 import React, { Component } from 'react';
 import AuthServiceApi from '../api/AuthServiceApi'
-import {  Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import {  Navbar, Nav } from 'react-bootstrap';
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            logged_in: false
+            logged_in: undefined
         }
+        this.handleLogIn = this.handleLogIn.bind(this);
     }
 
     componentDidMount() {
-        console.log("help")
         if(AuthServiceApi.isUserLoggedIn()) {
             console.log("me")
             this.setState({
                 logged_in: true
             })
-        } else {
+        } else if (!AuthServiceApi.isUserLoggedIn()) {
             console.log("please")
             this.setState({
                 logged_in: false
             })
         }
-        console.log('bruh')
+    }
+
+    handleLogIn = () => {
+        console.log("asldkfj")
+        // localStorage.setItem('user-id', '108')
+        // this.setState({
+            // logged_in: true
+        // })
+        window.location.href = "http://localhost:8080/auth/login";
+        // if (AuthServiceApi.isUserLoggedIn()) {
+        //     this.setState({
+        //         logged_in: true
+        //     });
+        // }
     }
 
     render() {
@@ -33,16 +46,19 @@ class Header extends Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
+                        {this.state.logged_in &&
+                            <Nav.Link href="/playlists">Playlists</Nav.Link>
+                        }
             </Nav>
                 {!this.state.logged_in &&
                     <Nav>
-                        <Nav.Link href="http://localhost:8080/auth/login">Login</Nav.Link>
+                        <Nav.Link href="#" onClick={this.handleLogIn}>Login</Nav.Link>
                         <Nav.Link href="#" onClick={AuthServiceApi.logOutUser}>Log out</Nav.Link>
                     </Nav> 
                 }
                 {this.state.logged_in &&
                     <Nav>
-                        <Nav.Link href="http://localhost:8080/auth/login">{localStorage.getItem('display_name')}</Nav.Link>
+                        <Nav.Link href="/profile">{localStorage.getItem('display_name')}</Nav.Link>
                         <Nav.Link href="#" onClick={AuthServiceApi.logOutUser}>Loog out</Nav.Link>
                     </Nav>
                 }

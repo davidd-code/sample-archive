@@ -18,7 +18,7 @@ class AuthComponent extends Component {
 
     render() {
         return (
-            <Redirect to={{ pathname: "/profile" }} />
+            <Redirect to={{ pathname: "/profile", refresh: true }} />
         );
 
     }

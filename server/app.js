@@ -7,6 +7,7 @@ const cors = require('cors');
 
 const auth_routes = require('./src/api/routes/authenticate')
 const user_routes = require('./src/api/routes/user')
+const playlist_routes = require('./src/api/routes/playlist')
 // const auth_routes = require('./src/api/routes/spotify-authenticate');
 
 require('./src/database');
@@ -27,6 +28,7 @@ app.use(express.static(__dirname + '/public'))
 // routes
 app.use('/auth', auth_routes);
 app.use('/user', user_routes);
+app.use('/playlists', playlist_routes);
 
 app.listen(PORT, function() {
     console.log(`Server listening on port ${PORT}`)

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import image from '../assets/vinyl.jpg';
 import '../styles/landing.css';
 
 
