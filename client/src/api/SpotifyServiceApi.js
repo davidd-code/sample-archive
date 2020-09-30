@@ -6,15 +6,21 @@ class SpotifyServiceApi {
 
     // Get all playlists
     getAllPlaylists(access_token) {
-        axios.get(backendUrl + '/playlists' , {
+        // axios.get(backendUrl + '/playlists/', {
+        //     params: {
+        //         token: access_token
+        //     }
+        // })
+        axios({
+            method: "get",
+            url: backendUrl + "/playlists/",
             params: {
-                token: access_token
+                token: access_token,
+                test: "Dlsdkjafdkj"
             }
         })
             .then(res => {
-                console.log("saldfkj");
-                console.log(access_token);
-                console.log("asldkfjlasdkfj");
+                console.log(res);
 
             })
     }
