@@ -59,7 +59,7 @@ class Header extends Component {
                 {this.state.logged_in &&
                     <Nav>
                         <Nav.Link href="/profile">{localStorage.getItem('display_name')}</Nav.Link>
-                        <Nav.Link href="#" onClick={AuthServiceApi.logOutUser}>Loog out</Nav.Link>
+                        <Nav.Link href="#" onClick={AuthServiceApi.logOutUser}>Log out</Nav.Link>
                     </Nav>
                 }
             </Navbar.Collapse>

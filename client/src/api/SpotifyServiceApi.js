@@ -11,7 +11,8 @@ class SpotifyServiceApi {
         //         token: access_token
         //     }
         // })
-        axios({
+        var results;
+        return axios({
             method: "get",
             url: backendUrl + "/playlists/",
             params: {
@@ -20,8 +21,9 @@ class SpotifyServiceApi {
             }
         })
             .then(res => {
-                console.log(res);
-
+                results = res.data;
+                // console.log(res.data);
+                return results;
             })
     }
 
