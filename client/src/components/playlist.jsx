@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SpotifyServiceApi from '../api/SpotifyServiceApi';
-import { Accordion, Card, Button } from 'react-bootstrap';
+import { CardGroup, Card, Button, Container, Row, Col } from 'react-bootstrap';
+import '../styles/playlist.css';
 
 class PlaylistPage extends Component {
     constructor(props) {
@@ -22,33 +23,37 @@ class PlaylistPage extends Component {
                 console.log(this.state.data.items);
             })
     }
- 
-    render() {
-        return(
-            <div className="container">
-                <h1>Playlist page</h1>
-                    <Accordion defaultActiveKey="0">
-                    {this.state.list.map((playlist, index) => 
-                        <Card>
-                            <Card.Header>
-                            <Accordion.Toggle as={Button} variant="link" eventKey={index+1}>
-                                {playlist.name}
-                            </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey={index+1}>
-                            <Card.Body>
-                                <img src={playlist.images[1].url} />
-                                <p>Total number of tracks: {playlist.tracks.total}</p>
-                            </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
 
+    render() {
+        return (
+            <div className="container">
+                <h1>Playlists</h1>
+                {/* <CardGroup> */}
+                <Container id="card-container">
+                    <Row>
+                    {this.state.list.map((playlist, index) =>
+                        <Col xl={3} l={4} md={4} className="columns">
+                            <Card style={{width: '20rem'}}>
+                                <Card.Img variant="top" src={playlist.images[0].url} />
+                                <Card.Body>
+                                    <Card.Title>{playlist.name}</Card.Title>
+                                    <Card.Text>
+                                        <a href={"/playlist/" + playlist.id}>Go to playlist</a>
+                                        <p>Total number of tracks: {playlist.tracks.total}</p>
+                                    </Card.Text>
+                                    {/* <Button variant="primary">Go somewhere</Button> */}
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        
                     )}
-                    </Accordion>
+                    </Row>
+                </Container>
+                {/* </CardGroup> */}
                 <a href="/">Back to home</a>
             </div>
         )
-   }
+    }
 }
 
 export default PlaylistPage;

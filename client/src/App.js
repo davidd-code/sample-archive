@@ -4,6 +4,7 @@ import AuthComponent from './components/authentication/authenticate'
 import HomePage from './components/home';
 import ShowUserPage from './components/authentication/show-user';
 import PlaylistPage from './components/playlist';
+import ShowPlaylistPage from './components/show-playlist';
 import Header from './components/header';
 import './App.css';
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/profile" component={ShowUserPage} />
         <Route path="/playlists" component={PlaylistPage} />
+        <Route path="/playlists/:id" component={ShowPlaylistPage} />
         <Route path="/getUser/:token" component={AuthComponent} />
       </Switch>
    </Router>
